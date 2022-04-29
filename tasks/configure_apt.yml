@@ -1,15 +1,7 @@
 ---
 # tasks file for ansible-role-cuda
-- name: Trust packaging key for Nvidia repositories (apt)
-  apt_key:
-    data: "{{ lookup('file', 'files/nvidia_packaging_key.asc') }}"
-    id: "{{ cuda_packaging_key_id }}"
-    state: present
-
-- name: Configure Nvidia repository (apt)
-  apt_repository:
-    repo: "deb {{ cuda_repo_url }}/{{ cuda_repo_subfolder }}/x86_64 /"
-    filename: nvidia
-    state: present
+- name: Trust packaging key for Nvidia repositories and configure repository (apt)
+  apt:
+    deb: https://developer.download.nvidia.com/compute/cuda/repos/ubuntu2004/x86_64/cuda-keyring_1.0-1_all.deb
 
 # vim:ft=ansible:
